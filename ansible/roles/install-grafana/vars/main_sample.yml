@@ -1,0 +1,6 @@
+---
+grafana_path: '/opt/grafana'
+grafana_port: 3000
+grafana_user: grafana
+grafana_group: grafana
+grafana_rsync_target: 'elara_grafana_backup@nas.home.familiebaus.de::elara_grafana_backup'

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+backup_date=$(date +'%Y%m%d')
+backup_path=$(mktemp -d)
+backup_name='grafana_backup'
+rsync_target={{ grafana_rsync_target }}
+{% raw %}grafana_data_path=$(docker volume inspect -f '{{ .Mountpoint }}' grafana_grafana-storage){% endraw %}
+
+
+echo "Backup date: $backup_date"
+echo "Backup path: $backup_path"
+echo "Backup name: $backup_name"
+echo "rsync Target: $rsync_target"
+echo "Grafana data path: $grafana_data_path"
+
+# Stop Grafana
+docker compose -f {{ grafana_path }}/docker-compose.yml down
+
+# Copy SQLite backup
+cp $grafana_data_path/grafana.db $backup_path/$backup_name-$backup_date.db
+
+# Start Grafana
+docker compose -f {{ grafana_path }}/docker-compose.yml up -d
+
+# rsync to NAS
+rsync -av --password-file={{ grafana_path }}/rsync.pwd $backup_path/$backup_name-$backup_date.db $rsync_target
+
+# Remove tmp directory
+rm -Rf $backup_path

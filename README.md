@@ -1,6 +1,6 @@
 # Grafana
 
-This repository covers my personal [Grafana](https://grafana.com/) instance, which I use to visualize data in my [Prometheus](https://grafana.com/) instances to observe my infrastructure and my [PV system](https://github.com/thinkpace/sonnen_exporter).
+This repository covers my personal [Grafana](https://grafana.com/) instance, which I use to visualize data in my [Prometheus](https://github.com/thinkpace/prometheus) instances to observe my infrastructure and my [PV system](https://github.com/thinkpace/sonnen_exporter).
 
 The following chapters cover setup, upgrade and backup. I publish it because it might help anybody to setup a similar solution.
 
